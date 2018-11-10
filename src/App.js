@@ -22,17 +22,20 @@ class Autocomplete extends Component {
 }
 
 class App extends Component {
-  state = { color: '' }
+  state = { color: '', bgColor: '' }
 
   onInputChange = e => this.setState({ color: e.target.value });
 
   onSubmit = e => {
     e.preventDefault();
+    const hexColor = colors().find(color => this.state.color === color.name).hex;
+    const bgColor = `#${hexColor}80`;
+    this.setState({ bgColor });
   }
 
   render() {
     return (
-      <div className={styles.app} style={{background: this.state.color}}>
+      <div className={styles.app} style={{background: this.state.bgColor}}>
         <h3>Choose background color</h3>
         <form
           className={styles.colorPickerForm}
