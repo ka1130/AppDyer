@@ -5,11 +5,20 @@ class App extends Component {
   render() {
     return (
       <div className={styles.app}>
-        <header className={styles.appHeader}>
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-        </header>
+        <h3>Choose background color</h3>
+        <form className={styles.colorPickerForm}>
+          <input
+            type="text"
+            className={styles.colorInput}
+            placeholder="Start typing the color..."
+          />
+          <button
+            type="submit"
+            className={styles.submitColor}
+          >
+            Submit
+          </button>
+        </form>
       </div>
     );
   }

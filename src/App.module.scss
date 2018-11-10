@@ -1,13 +1,39 @@
 .app {
+  padding-top: 1rem;
   text-align: center;
-  .appHeader {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: red;
+  height: 100%;
+  h3 {
+    padding: 1rem;
+  }
+}
+
+.colorPickerForm {
+  width: 20rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.colorInput, .submitColor {
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.colorInput {
+  height: 1rem;
+  padding: 0.5rem;
+}
+
+.submitColor {
+  padding: 0.5rem 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    background-color: beige;
   }
 }
