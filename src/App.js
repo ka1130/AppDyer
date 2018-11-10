@@ -50,7 +50,6 @@ class App extends Component {
             Accept
           </button>
         </form>
-        <p>Color name: {this.state.color}</p>
       </div>
     );
   }
