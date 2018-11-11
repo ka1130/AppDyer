@@ -55,3 +55,11 @@
     }
   }
 }
+
+.suggestionActive,
+.suggestionList li:hover {
+  background-color: #8f0024;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+}
