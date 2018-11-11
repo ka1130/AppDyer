@@ -4,10 +4,12 @@ import Autocomplete from 'App/Autocomplete';
 
 // import styles from './App.module.scss';
 
+
 class App extends Component {
   render() {
+    const suggestions = colors().map(color => color.name);
     return (
-      <Autocomplete suggestions={colors()}/>
+      <Autocomplete suggestions={suggestions}/>
     );
   }
 }

@@ -13,6 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .colorInput, .submitColor {
@@ -35,5 +36,22 @@
   cursor: pointer;
   &:hover {
     background-color: beige;
+  }
+}
+
+.suggestionList {
+  border: 1px solid #999;
+  border-top-width: 0;
+  list-style: none;
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  width: 10rem;
+  padding: 0;
+  li {
+    padding: 0.5rem;
+    &:not(:last-of-type) {
+      border-bottom: 1px solid #999;
+    }
   }
 }
