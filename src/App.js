@@ -3,30 +3,8 @@ import { colors } from "data";
 
 import styles from "./App.module.scss";
 
-class Autocomplete extends Component {
-  render() {
-    return (
-      <fieldset>
-        <input
-          list="colors"
-          className={styles.colorInput}
-          placeholder="Start typing the color..."
-          onChange={this.props.onChange}
-        />
-        <datalist id="colors">
-          {colors().map((color, i) => (
-            <option key={i} value={color.name}>
-              {color.name}
-            </option>
-          ))}
-        </datalist>
-      </fieldset>
-    );
-  }
-}
-
 class App extends Component {
-  state = { color: '', bgColor: '' };
+  state = { color: "", bgColor: "" };
 
   onInputChange = e => this.setState({ color: e.target.value });
 
@@ -34,17 +12,12 @@ class App extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
-    console.log(e.target.value);
     if (this.state.color) {
-      const hexColor = colors().find(color => this.state.color === color.name).hex;
+      const hexColor = colors().find(color => this.state.color === color.name)
+        .hex;
       const bgColor = `#${hexColor}80`;
       this.setState({ bgColor });
-    } 
-    // const hexColor = colors().find(color => this.state.color === color.name)
-    //   .hex;
-    // // const bgColor = `#${hexColor}80`;
-    // this.setState({ bgColor });
+    }
   };
 
   render() {
@@ -52,13 +25,30 @@ class App extends Component {
       <div className={styles.app} style={{ background: this.state.bgColor }}>
         <h3>Choose background color</h3>
         <form className={styles.colorPickerForm} onSubmit={this.onSubmit}>
-          <fieldset>
-            <input list="colors" type="color" onChange={this.onColorSampleChange} />
-            <datalist id="colors">
-              {colors().map((color, i) => (<option key={i} value={color.name} />))}
-            </datalist>
-          </fieldset>
-          <Autocomplete onChange={this.onInputChange} />
+          <input
+            list="colors"
+            type="color"
+            className={styles.colorSampleInput}
+            onChange={this.onColorSampleChange}
+          />
+          <datalist id="colors">
+            {colors().map((color, i) => (
+              <option key={i} value={color.name} />
+            ))}
+          </datalist>
+          <input
+            list="colors"
+            className={styles.colorInput}
+            placeholder="Start typing the color..."
+            onChange={this.onInputChange}
+          />
+          <datalist id="colors">
+            {colors().map((color, i) => (
+              <option key={i} value={color.name}>
+                {color.name}
+              </option>
+            ))}
+          </datalist>
           <button
             type="submit"
             className={styles.submitColor}
