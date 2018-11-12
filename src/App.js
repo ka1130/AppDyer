@@ -4,7 +4,7 @@ import { colors } from "data";
 import styles from "./App.module.scss";
 
 class App extends Component {
-  state = { color: "", bgColor: "" };
+  state = { color: "", bgColor: "", submitted: false };
 
   onInputChange = e => this.setState({ color: e.target.value });
 
@@ -14,17 +14,18 @@ class App extends Component {
     e.preventDefault();
     const colorNames = colors().map(color => color.name);
     if (colorNames.indexOf(this.state.color) !== -1) {
-      console.log(this.state.color);
       const hexColor = colors().find(color => this.state.color === color.name)
         .hex;
       const bgColor = `#${hexColor}80`;
       this.setState({ bgColor });
     }
+    this.setState({ submitted: true });
   };
 
   render() {
+    const { submitted, bgColor } = this.state;
     return (
-      <div className={styles.app} style={{ background: this.state.bgColor }}>
+      <div className={styles.app} style={{ background: submitted ? bgColor : ''}}>
         <h3>Choose background color</h3>
         <form className={styles.colorPickerForm} onSubmit={this.onSubmit}>
           <input
