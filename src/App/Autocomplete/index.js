@@ -31,6 +31,23 @@ class Autocomplete extends Component {
     });
   };
 
+  onKeyDown = e => {
+    const { activeSuggestion, filteredSuggestions } = this.state;
+    if (e.keyCode === 13) { // enter key
+      this.setState({
+        activeSuggestion: 0,
+        showSuggestions: false,
+        userInput: filteredSuggestions[activeSuggestion].name
+      });
+    } else if (e.keyCode === 38) { // up arrow
+      if (activeSuggestion === 0) return
+      this.setState({ activeSuggestion: activeSuggestion - 1 });
+    } else if (e.keyCode === 40) { // down arrow
+      if (activeSuggestion - 1 === filteredSuggestions.length) return;
+      this.setState({ activeSuggestion: activeSuggestion + 1 });
+    }
+  };
+
   onSuggestionClick = e => {
     const colorChosen = this.state.filteredSuggestions.find(suggestion => suggestion.name === e.target.innerText);
     this.setState({
@@ -50,12 +67,18 @@ class Autocomplete extends Component {
   };
 
   renderSuggestionList = () => {
-    const { showSuggestions, filteredSuggestions } = this.state;
+    const { showSuggestions, filteredSuggestions, activeSuggestion } = this.state;
     if (showSuggestions && filteredSuggestions) {
       return (
         <ul className={styles.suggestionList}>
-          {filteredSuggestions.map(suggestion => (
-            <li key={uuidv4()} onClick={this.onSuggestionClick}>{suggestion.name}</li>
+          {filteredSuggestions.map((suggestion, i) => (
+            <li 
+              key={uuidv4()}
+              onClick={this.onSuggestionClick}
+              className={activeSuggestion === i ? `${styles.suggestionActive}` : null}
+            >
+              {suggestion.name}
+            </li>
           ))}
         </ul>
       );
@@ -73,6 +96,7 @@ class Autocomplete extends Component {
             placeholder="Start typing the color..."
             value={this.state.userInput}
             onChange={this.onInputChange}
+            onKeyDown={this.onKeyDown}
           />
           {this.renderSuggestionList()}
           <button
