@@ -14,7 +14,7 @@ class Autocomplete extends Component {
 
   onInputChange = e => {
     const userInput = e.currentTarget.value;
-    let filteredSuggestions;
+    let filteredSuggestions = [];
 
     if (userInput.length > 1) {
       filteredSuggestions = this.props.suggestions.filter(
@@ -82,7 +82,7 @@ class Autocomplete extends Component {
       filteredSuggestions,
       activeSuggestion
     } = this.state;
-    if (showSuggestions && filteredSuggestions) {
+    if (showSuggestions && filteredSuggestions.length > 0) {
       return (
         <ul className={styles.suggestionList}>
           {filteredSuggestions.map((suggestion, i) => (
@@ -102,6 +102,7 @@ class Autocomplete extends Component {
   };
 
   render() {
+    console.log(this.state.filteredSuggestions !== [], this.state.filteredSuggestions);
     return (
       <div className={styles.app} style={{ background: this.state.bgColor }}>
         <h3>Choose background color</h3>
