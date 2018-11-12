@@ -37,6 +37,7 @@ class Autocomplete extends Component {
       activeSuggestion: 0,
       filteredSuggestions: [],
       showSuggestions: false,
+      userInput: e.target.innerText,
       colorChosen
     });
   };
@@ -70,6 +71,7 @@ class Autocomplete extends Component {
             list="colors"
             className={styles.colorInput}
             placeholder="Start typing the color..."
+            value={this.state.userInput}
             onChange={this.onInputChange}
           />
           {this.renderSuggestionList()}
