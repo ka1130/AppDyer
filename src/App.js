@@ -12,7 +12,9 @@ class App extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    if (this.state.color) {
+    const colorNames = colors().map(color => color.name);
+    if (colorNames.indexOf(this.state.color) !== -1) {
+      console.log(this.state.color);
       const hexColor = colors().find(color => this.state.color === color.name)
         .hex;
       const bgColor = `#${hexColor}80`;
