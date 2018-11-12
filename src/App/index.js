@@ -74,7 +74,7 @@ class App extends Component {
     e.preventDefault();
     const hexColor = this.state.colorChosen.hex;
     const bgColor = `#${hexColor}80`;
-    this.setState({ bgColor });
+    this.setState({ userInput: '', bgColor });
   };
 
   renderSuggestionList = () => {
