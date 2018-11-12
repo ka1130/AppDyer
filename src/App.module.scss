@@ -8,7 +8,7 @@
 }
 
 .colorPickerForm {
-  width: 25rem;
+  width: 28rem;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -42,4 +42,11 @@
   &:hover {
     background-color: beige;
   }
+}
+
+.colorPreview {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  margin-right: 2.5rem;
 }

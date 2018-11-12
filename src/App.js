@@ -23,7 +23,11 @@ class App extends Component {
   };
 
   render() {
-    const { submitted, bgColor } = this.state;
+    const { submitted, bgColor, color } = this.state;
+    let previewColor = '';
+    if (colors().find(el => el.name === color)) {
+      previewColor = `#${colors().find(el => el.name === color).hex}`
+    }
     return (
       <div className={styles.app} style={{ background: submitted ? bgColor : ''}}>
         <h3>Choose background color</h3>
@@ -52,6 +56,7 @@ class App extends Component {
               </option>
             ))}
           </datalist>
+          <span className={styles.colorPreview} style={{ background: previewColor }} />
           <button
             type="submit"
             className={styles.submitColor}
