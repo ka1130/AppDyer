@@ -1,5 +1,8 @@
 # AppDyer
-A simple React npm lib to pick up you app's background color
+A simple app that lets user pick up the background color based on autosuggestion.
+This repository contains two options of handling the solution:
+- with native HTML5 `<datalist>` tag and, additionally, color palette (_basic-setup_ branch)
+- with pure React (_pure-react-solution_ branch)
 
 # Demo
-Demo of the app: [http://ka1130.github.io/AppDyer](http://ka1130.github.io/AppDyer)
+The basic solution demo is deployed to [GitHub pages: ](https://ka1130.github.io/AppDyer/)
