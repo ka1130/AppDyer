@@ -5,29 +5,21 @@ import styles from "./Autocomplete.module.scss";
 
 class Autocomplete extends Component {
   state = {
-    color: "",
-    bgColor: "",
-    // The active selection's index
     activeSuggestion: 0,
-    // The suggestions that match the user's input
     filteredSuggestions: [],
-    // Whether or not the suggestion list is shown
     showSuggestions: false,
-    // What the user has entered
-    userInput: ""
+    userInput: "",
+    colorChosen: {}
   };
-
-  // onInputChange = e => this.setState({ color: e.target.value });
 
   onInputChange = e => {
     const userInput = e.currentTarget.value;
     let filteredSuggestions;
 
-    // Filter our suggestions that don't contain the user's input
     if (userInput.length > 1) {
       filteredSuggestions = this.props.suggestions.filter(
         suggestion =>
-          suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+          suggestion.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1
       );
     }
 
@@ -40,23 +32,21 @@ class Autocomplete extends Component {
   };
 
   onSuggestionClick = e => {
-    // Update the user input and reset the rest of the state
+    const colorChosen = this.state.filteredSuggestions.find(suggestion => suggestion.name === e.target.innerText);
     this.setState({
       activeSuggestion: 0,
       filteredSuggestions: [],
       showSuggestions: false,
-      userInput: e.currentTarget.innerText
+      colorChosen
     });
   };
 
-  // onSubmit = e => {
-  //   e.preventDefault();
-  //   const hexColor = this.props.suggestions.find(
-  //     color => this.state.color === color.name
-  //   ).hex;
-  //   const bgColor = `#${hexColor}80`;
-  //   this.setState({ bgColor });
-  // };
+  onSubmit = e => {
+    e.preventDefault();
+    const hexColor = this.state.colorChosen.hex;
+    const bgColor = `#${hexColor}80`;
+    this.setState({ bgColor });
+  };
 
   renderSuggestionList = () => {
     const { showSuggestions, filteredSuggestions } = this.state;
@@ -64,7 +54,7 @@ class Autocomplete extends Component {
       return (
         <ul className={styles.suggestionList}>
           {filteredSuggestions.map(suggestion => (
-            <li key={uuidv4()}>{suggestion}</li>
+            <li key={uuidv4()} onClick={this.onSuggestionClick}>{suggestion.name}</li>
           ))}
         </ul>
       );
