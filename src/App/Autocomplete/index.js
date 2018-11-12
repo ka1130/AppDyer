@@ -33,28 +33,38 @@ class Autocomplete extends Component {
 
   onKeyDown = e => {
     const { activeSuggestion, filteredSuggestions } = this.state;
-    if (e.keyCode === 13) { // enter key
+    if (e.keyCode === 13) {
+      // enter key
+      e.preventDefault();
+      const colorChosen = filteredSuggestions.find(
+        suggestion =>
+          suggestion.name === filteredSuggestions[activeSuggestion].name
+      );
       this.setState({
-        activeSuggestion: 0,
         showSuggestions: false,
-        userInput: filteredSuggestions[activeSuggestion].name
+        colorChosen,
+        userInput: colorChosen.name
       });
-    } else if (e.keyCode === 38) { // up arrow
-      if (activeSuggestion === 0) return
+    } else if (e.keyCode === 38) {
+      // up arrow
+      if (activeSuggestion === 0) return;
       this.setState({ activeSuggestion: activeSuggestion - 1 });
-    } else if (e.keyCode === 40) { // down arrow
+    } else if (e.keyCode === 40) {
+      // down arrow
       if (activeSuggestion - 1 === filteredSuggestions.length) return;
       this.setState({ activeSuggestion: activeSuggestion + 1 });
     }
   };
 
   onSuggestionClick = e => {
-    const colorChosen = this.state.filteredSuggestions.find(suggestion => suggestion.name === e.target.innerText);
+    const colorChosen = this.state.filteredSuggestions.find(
+      suggestion => suggestion.name === e.target.innerText
+    );
     this.setState({
       activeSuggestion: 0,
       filteredSuggestions: [],
       showSuggestions: false,
-      userInput: e.target.innerText,
+      userInput: e.currentTarget.innerText,
       colorChosen
     });
   };
@@ -67,15 +77,21 @@ class Autocomplete extends Component {
   };
 
   renderSuggestionList = () => {
-    const { showSuggestions, filteredSuggestions, activeSuggestion } = this.state;
+    const {
+      showSuggestions,
+      filteredSuggestions,
+      activeSuggestion
+    } = this.state;
     if (showSuggestions && filteredSuggestions) {
       return (
         <ul className={styles.suggestionList}>
           {filteredSuggestions.map((suggestion, i) => (
-            <li 
+            <li
               key={uuidv4()}
               onClick={this.onSuggestionClick}
-              className={activeSuggestion === i ? `${styles.suggestionActive}` : null}
+              className={
+                activeSuggestion === i ? `${styles.suggestionActive}` : null
+              }
             >
               {suggestion.name}
             </li>
