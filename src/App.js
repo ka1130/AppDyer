@@ -6,9 +6,10 @@ import styles from "./App.module.scss";
 class App extends Component {
   state = { color: "", bgColor: "", submitted: false };
 
-  onInputChange = e => this.setState({ color: e.target.value });
-
-  onColorSampleChange = e => this.setState({ bgColor: `${e.target.value}80` });
+  onInputChange = e => {
+    e.preventDefault();
+    this.setState({ color: e.target.value })
+  };
 
   onSubmit = e => {
     e.preventDefault();
@@ -19,30 +20,18 @@ class App extends Component {
       const bgColor = `#${hexColor}80`;
       this.setState({ bgColor });
     }
-    this.setState({ submitted: true });
   };
 
   render() {
-    const { submitted, bgColor, color } = this.state;
+    const { bgColor, color } = this.state;
     let previewColor = '';
     if (colors().find(el => el.name === color)) {
       previewColor = `#${colors().find(el => el.name === color).hex}`
     }
     return (
-      <div className={styles.app} style={{ background: submitted ? bgColor : ''}}>
+      <div className={styles.app} style={{ background: bgColor }}>
         <h3>Choose background color</h3>
         <form className={styles.colorPickerForm} onSubmit={this.onSubmit}>
-          <input
-            list="colors"
-            type="color"
-            className={styles.colorSampleInput}
-            onChange={this.onColorSampleChange}
-          />
-          <datalist id="colors">
-            {colors().map((color, i) => (
-              <option key={i} value={color.name} />
-            ))}
-          </datalist>
           <input
             list="colors"
             className={styles.colorInput}
