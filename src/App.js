@@ -24,27 +24,39 @@ class App extends Component {
       .catch(error => console.error(error));
   };
 
-  onInputChange = e => {
-    // e.preventDefault();
-    this.setState({ colorChosen: e.target.value });
-  };
-
-  onInput = e => {
-    console.log(e.target.value);
-  };
+  onInputChange = e => this.setState({ colorChosen: e.target.value });
 
   onSubmit = e => {
     e.preventDefault();
     const { colorChosen, colors } = this.state;
     const colorNames = colors.map(color => color.name);
     if (colorNames.indexOf(colorChosen) !== -1) {
-      const hexColor = colors.find(
-        color => colorChosen === color.name
-      ).hex;
+      const hexColor = colors.find(color => colorChosen === color.name).hex;
       const bgColor = `#${hexColor}80`;
       this.setState({ bgColor });
     }
   };
+
+  renderAutosuggestions = suggestions => {
+    if ('options' in document.createElement('datalist')) {
+      return (
+        <datalist id="colors">
+          {suggestions.map((color, i) => (
+            <option key={i} value={color.name}>
+              {color.name}
+            </option>
+          ))}
+        </datalist>
+      );
+    } else {
+      return this.renderFallbackList();
+      // return another component here
+    }
+  };
+
+  renderFallbackList = () => {
+    return <p>No support</p>;
+  }
 
   render() {
     const { bgColor, colorChosen, colors } = this.state;
@@ -60,17 +72,9 @@ class App extends Component {
             list="colors"
             className={styles.colorInput}
             placeholder="Start typing the color..."
-            onInput={this.onInput}
-            // change name of this event to sth more specific
             onChange={this.onInputChange}
           />
-          <datalist id="colors">
-            {colors.map((color, i) => (
-              <option key={i} value={color.name}>
-                {color.name}
-              </option>
-            ))}
-          </datalist>
+          {this.renderAutosuggestions(colors)}
           <span
             className={styles.colorPreview}
             style={{ background: previewColor }}
