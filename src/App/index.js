@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import FallbackList from './FallbackList'
 
 import styles from "./App.module.scss";
 
@@ -6,7 +7,7 @@ class App extends Component {
   state = {
     colors: [],
     isFetching: false,
-    colorChosen: "",
+    userInput: "",
     bgColor: "",
     submitted: false
   };
@@ -24,14 +25,14 @@ class App extends Component {
       .catch(error => console.error(error));
   };
 
-  onInputChange = e => this.setState({ colorChosen: e.target.value });
+  onInputChange = e => this.setState({ userInput: e.target.value });
 
   onSubmit = e => {
     e.preventDefault();
-    const { colorChosen, colors } = this.state;
+    const { userInput, colors } = this.state;
     const colorNames = colors.map(color => color.name);
-    if (colorNames.indexOf(colorChosen) !== -1) {
-      const hexColor = colors.find(color => colorChosen === color.name).hex;
+    if (colorNames.indexOf(userInput) !== -1) {
+      const hexColor = colors.find(color => userInput === color.name).hex;
       const bgColor = `#${hexColor}80`;
       this.setState({ bgColor });
     }
@@ -49,20 +50,15 @@ class App extends Component {
         </datalist>
       );
     } else {
-      return this.renderFallbackList();
-      // return another component here
+      return <FallbackList colors={suggestions} userInput={this.state.userInput} />;
     }
   };
 
-  renderFallbackList = () => {
-    return <p>No support</p>;
-  }
-
   render() {
-    const { bgColor, colorChosen, colors } = this.state;
+    const { bgColor, userInput, colors } = this.state;
     let previewColor = "";
-    if (colors.find(el => el.name === colorChosen)) {
-      previewColor = `#${colors.find(el => el.name === colorChosen).hex}`;
+    if (colors.find(el => el.name === userInput)) {
+      previewColor = `#${colors.find(el => el.name === userInput).hex}`;
     }
     return (
       <div className={styles.app} style={{ background: bgColor }}>
