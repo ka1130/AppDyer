@@ -13,9 +13,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
-.colorInput, .submitColor {
+.colorInput,
+.submitColor {
   background-color: #fff;
   border: 2px solid #000;
   border-radius: 0.25rem;
@@ -38,9 +40,27 @@
   }
 }
 
-.colorPreview {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  margin-right: 2.5rem;
+.suggestionList {
+  border: 1px solid #999;
+  border-top-width: 0;
+  list-style: none;
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  width: 10rem;
+  padding: 0;
+  li {
+    padding: 0.5rem;
+    &:not(:last-of-type) {
+      border-bottom: 1px solid #999;
+    }
+  }
+}
+
+.suggestionActive,
+.suggestionList li:hover {
+  background-color: #8f0024;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
 }
