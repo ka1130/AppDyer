@@ -8,7 +8,7 @@
 }
 
 .colorPickerForm {
-  width: 20rem;
+  width: 25rem;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -16,7 +16,8 @@
   position: relative;
 }
 
-.colorInput, .submitColor {
+.colorInput,
+.submitColor {
   background-color: #fff;
   border: 2px solid #000;
   border-radius: 0.25rem;
