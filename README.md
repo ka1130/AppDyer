@@ -9,3 +9,8 @@ Due to lack of support for native HTML5 `<datalist>`, the autosuggestion is impl
 # Demo
 
 The basic solution demo is deployed to [GitHub pages ](https://ka1130.github.io/AppDyer/)
+
+# npm module
+
+This app is installable via npm: `npm install app-dyer-library`
+The npm lib repository is available [here](https://github.com/ka1130/app-dyer-library).
